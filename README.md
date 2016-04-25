@@ -1,6 +1,7 @@
 # kivy-buildozer
 
 Docker container built for buildozer kivy tool.
+Only python 2.7 has been tested so far. 
 
 ### Usage:
 
