@@ -3,5 +3,6 @@
 .idea
 *.db
 *.sqlite
+packages.txt
 tmp
 __pycache__

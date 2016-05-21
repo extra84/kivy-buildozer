@@ -1,0 +1,32 @@
+#!/bin/bash
+cd /src
+if [ ! -e /home/kivy/.buildozer/tmp/archives ]
+then
+        mkdir -p /home/kivy/.buildozer/tmp/archives
+fi
+
+if [ -e packages.txt ] 
+echo Checking required packages
+
+then
+	while IFS='' read -r line || [[ -n "$line" ]]; do
+		PACKAGES=("${PACKAGES[@]} $line")
+	done < packages.txt
+fi
+for package in $PACKAGES; do
+        output=$(dpkg -s $package 2> /dev/null | grep Status)
+        if [ "$output" = "Status: install ok installed" ]
+        then
+                echo $package installed
+        else
+                echo $package not installed
+                need_install=("${need_install[@]} $package") 
+        fi
+done
+if [ ${#need_install[@]} -gt 0 ]
+        echo Installing new packages : $need_install
+then
+        apt-get update && apt-get -o dir::cache::archives="/home/kivy/.buildozer/tmp/archives" install -y ${need_install[@]}
+fi
+
+runuser -u kivy buildozer $@

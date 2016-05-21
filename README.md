@@ -1,29 +1,22 @@
 # kivy-buildozer
 
 Docker container built for buildozer kivy tool.
-Only python 2.7 has been tested so far. 
+Only python 2.7 has been tested so far.
 
 ### Usage:
 
-> `docker run -ti extra/kivy-buildozer`
+> `cd dir_where_is_my_spec_file`
 
-- Customize the container if needed as root. Then switch to kivy user :
+> `docker run --rm -ti -v $(pwd):/src extra/kivy-buildozer android debug`
 
-> `su kivy`
-
-- Download your kivy app sources. (wget, git ...)
-- Replace the default Buildozer.spec file with yours. Default file is just here if you need to test the container
-- Build the apk
-
-> `buildozer android debug`
-
-### Tips:
 - To skip Google's SDK and NDK download each time just use a persistent volume:
+> `docker run --rm -ti -v $(pwd):/src -v package-name:/home/kivy/.buildozer:rw extra/kivy-buildozer android debug`
 
-> `docker run -ti -v package-name:/home/kivy/.buildozer:rw extra/kivy-buildozer`
+- If you need to access your device via USB with deploy run or logcat command, add usb support to your docker container (don't forget to enable usb debugging on the device):
+> `docker run --rm --privileged -ti -v /dev/bus/usb:/dev/bus/usb -v $(pwd):/src -v package-name:/home/kivy/.buildozer:rw extra/kivy-buildozer android debug deploy run logcat`
 
-- To transfer your apk from docker to your device or computer you could use python http module from the folder containing your apk
 
-> `docker run -ti -p 80:8000 -v  tmp:/home/kivy/.buildozer:rw extra/kivy-buildozer`
 
-> `python -m SimpleHTTPserver`
+
+
+
