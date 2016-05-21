@@ -17,6 +17,4 @@ Only python 2.7 has been tested so far.
 
 
 
-
-
-
+if your application needs extra packages (libsomething-dev, ...) just add their names, one per line, in a packages.txt in the same directory as your spec file
