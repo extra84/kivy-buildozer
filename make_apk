@@ -6,9 +6,9 @@ then
 fi
 
 if [ -e packages.txt ] 
-echo Checking required packages
-
 then
+	echo Checking required packages
+
 	while IFS='' read -r line || [[ -n "$line" ]]; do
 		PACKAGES=("${PACKAGES[@]} $line")
 	done < packages.txt
@@ -24,8 +24,8 @@ for package in $PACKAGES; do
         fi
 done
 if [ ${#need_install[@]} -gt 0 ]
-        echo Installing new packages : $need_install
 then
+        echo Installing new packages : $need_install
         apt-get update && apt-get -o dir::cache::archives="/home/kivy/.buildozer/tmp/archives" install -y ${need_install[@]}
 fi
 
