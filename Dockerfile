@@ -1,19 +1,34 @@
-FROM ubuntu:16.04
+FROM debian:stretch
 MAINTAINER Extra <extra84@gmail.com>
 
-ENV DEBIAN_FRONTEND noninteractive
-
-RUN dpkg --add-architecture i386 && \
-            apt-get update && \
-            apt-get install -y python-pip cython vim build-essential ccache git gcc openjdk-8-jdk \
-                lsb-release unzip wget curl python-dev zlib1g-dev ant xsel xclip \ 
-                zlib1g:i386 libncurses5:i386 libstdc++6:i386 && \
-            apt-get clean && \
-            pip install pip --upgrade && \
-            pip install cython buildozer && \
-            adduser -u 1000 kivy && \
-            mkdir -p /data /home/kivy/.buildozer && chown 1000 /data && \
-            chown -R kivy.kivy /home/kivy/.buildozer
+RUN  dpkg --add-architecture i386 \
+	&& apt-get update \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ant \
+		build-essential \
+		ccache \
+		curl \
+		cython \
+		git \
+		gcc \
+		lsb-release \
+		openjdk-8-jdk \
+		python-dev \
+		python-pip \
+		python-setuptools \
+		python-wheel \
+		unzip \
+		vim \
+		wget \
+		xclip \ 
+		xsel \
+		zlib1g-dev \
+                zlib1g:i386 libncurses5:i386 libstdc++6:i386 \
+	&& apt-get clean 
+RUN pip install pip --upgrade \
+	&& pip install cython buildozer \
+	&& useradd -u 1000 kivy \
+	&& mkdir -p /data /home/kivy/.buildozer && chown 1000 /data \
+	&& chown -R kivy.kivy /home/kivy/.buildozer
 
 COPY make_apk /usr/bin/make_apk
 
