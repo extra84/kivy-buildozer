@@ -27,8 +27,11 @@ RUN  dpkg --add-architecture i386 \
 RUN pip install pip --upgrade \
 	&& pip install cython buildozer \
 	&& useradd -u 1000 kivy \
-	&& mkdir -p /data /home/kivy/.buildozer && chown 1000 /data \
-	&& chown -R kivy.kivy /home/kivy/.buildozer
+	&& mkdir -p /data /home/kivy/.buildozer \
+	&& mkdir -p /data /home/kivy/.local \
+	&& chown 1000 /data \
+	&& chown -R kivy.kivy /home/kivy/.buildozer \
+	&& chown -R kivy.kivy /home/kivy/.local
 
 COPY make_apk /usr/bin/make_apk
 
