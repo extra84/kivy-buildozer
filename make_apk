@@ -29,4 +29,5 @@ then
         apt-get update && apt-get -o dir::cache::archives="/home/kivy/.buildozer/tmp/archives" install -y ${need_install[@]}
 fi
 
-runuser -u kivy buildozer $@
+buildozer $@
+#runuser -u kivy buildozer $@

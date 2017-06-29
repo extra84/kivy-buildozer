@@ -29,9 +29,10 @@ RUN pip install pip --upgrade \
 	&& useradd -u 1000 kivy \
 	&& mkdir -p /data /home/kivy/.buildozer \
 	&& mkdir -p /data /home/kivy/.local \
+	&& mkdir -p /data /home/kivy/.android \
 	&& chown 1000 /data \
-	&& chown -R kivy.kivy /home/kivy/.buildozer \
-	&& chown -R kivy.kivy /home/kivy/.local
+	&& chmod -R 777 /home/kivy \
+	&& chown -R kivy.kivy /home/kivy/
 
 COPY make_apk /usr/bin/make_apk
 
