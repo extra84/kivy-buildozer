@@ -1,3 +1,9 @@
+# !!! not maintained any more !!!
+# can't make new buildozer versions work inside a container 
+# use official buildozer VM instead
+# sorry :(
+
+
 # kivy-buildozer
 
 Docker container built for buildozer kivy tool.
